@@ -6,10 +6,11 @@ builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 builder.Services.AddCoffeeShopDbContext(builder.Configuration.GetConnectionString("CoffeeShopContext")!);
 
-var app = builder.Build();
+WebApplication app = builder.Build();
 
 if (app.Environment.IsDevelopment())
 {
+    await app.ApplyMigration();
     app.UseSwagger();
     app.UseSwaggerUI();
 }
