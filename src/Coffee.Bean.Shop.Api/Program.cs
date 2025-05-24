@@ -10,7 +10,7 @@ WebApplication app = builder.Build();
 
 if (app.Environment.IsDevelopment())
 {
-    await app.ApplyMigration();
+    await app.ApplyDatabaseMigrations();
     app.UseSwagger();
     app.UseSwaggerUI();
 }

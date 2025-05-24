@@ -10,7 +10,7 @@ public static class DIExtensions
         services.AddDbContext<CoffeeShopContext>(options => options.UseNpgsql(connectionString));
     }
 
-    public static async Task ApplyMigration(this IApplicationBuilder app)
+    public static async Task ApplyDatabaseMigrations(this IApplicationBuilder app)
     {
         using IServiceScope serviceScope = app.ApplicationServices.CreateScope();
         using var context = serviceScope.ServiceProvider.GetRequiredService<CoffeeShopContext>();
