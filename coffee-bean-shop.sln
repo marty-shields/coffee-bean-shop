@@ -15,6 +15,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Coffee.Bean.Shop.Infrastruc
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "test", "test", "{0C88DD14-F956-CE84-757C-A364CCF449FC}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Coffee.Bean.Shop.Infrastructure.Integration", "test\Coffee.Bean.Shop.Infrastructure.Integration\Coffee.Bean.Shop.Infrastructure.Integration.csproj", "{3A0C6400-B780-4D1E-879E-F2EF83292AF2}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -37,6 +39,10 @@ Global
 		{184BC992-B9C3-4148-B14A-398BD2286744}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{184BC992-B9C3-4148-B14A-398BD2286744}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{184BC992-B9C3-4148-B14A-398BD2286744}.Release|Any CPU.Build.0 = Release|Any CPU
+		{3A0C6400-B780-4D1E-879E-F2EF83292AF2}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3A0C6400-B780-4D1E-879E-F2EF83292AF2}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{3A0C6400-B780-4D1E-879E-F2EF83292AF2}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{3A0C6400-B780-4D1E-879E-F2EF83292AF2}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -46,5 +52,6 @@ Global
 		{4C25E801-40AA-4B48-820D-8E1D0E895812} = {827E0CD3-B72D-47B6-A68D-7590B98EB39B}
 		{C6EB2E25-E398-44F4-AE39-F6BFEA1F7926} = {827E0CD3-B72D-47B6-A68D-7590B98EB39B}
 		{184BC992-B9C3-4148-B14A-398BD2286744} = {827E0CD3-B72D-47B6-A68D-7590B98EB39B}
+		{3A0C6400-B780-4D1E-879E-F2EF83292AF2} = {0C88DD14-F956-CE84-757C-A364CCF449FC}
 	EndGlobalSection
 EndGlobal

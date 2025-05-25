@@ -10,5 +10,5 @@ internal class CoffeeShopContext : DbContext
     {
     }
 
-    internal DbSet<CoffeeBean> CoffeeBeans { get; set; }
+    internal DbSet<CoffeeBeanTable> CoffeeBeans { get; set; }
 }

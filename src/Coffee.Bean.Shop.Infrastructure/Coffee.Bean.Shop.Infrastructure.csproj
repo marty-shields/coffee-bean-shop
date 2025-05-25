@@ -3,4 +3,7 @@
     <PackageReference Include="Microsoft.AspNetCore.Http.Abstractions" />
     <PackageReference Include="Npgsql.EntityFrameworkCore.PostgreSQL" />
   </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="../Coffee.Bean.Shop.Core/Coffee.Bean.Shop.Core.csproj" />
+  </ItemGroup>
 </Project>
