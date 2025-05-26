@@ -1,3 +1,4 @@
+using Coffee.Bean.Shop.Common;
 using Coffee.Bean.Shop.Core.Entities;
 using Coffee.Bean.Shop.Infrastructure.Integration.Common;
 using Coffee.Bean.Shop.Infrastructure.Models;
@@ -46,6 +47,6 @@ public class CoffeeBeansWriteRepositoryTests
     {
         CoffeeBeanTable? actualCoffeeBean = await _context!.CoffeeBeans.FindAsync(expectedCoffeeBean.Id);
         Assert.IsNotNull(actualCoffeeBean);
-        CommonAssertions.AssertCoffeeBeanIsEqual(expectedCoffeeBean, actualCoffeeBean);
+        CommonDbAssertions.AssertCoffeeBeanIsEqual(expectedCoffeeBean, actualCoffeeBean);
     }
 }

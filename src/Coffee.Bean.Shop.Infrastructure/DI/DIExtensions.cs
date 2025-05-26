@@ -15,8 +15,8 @@ public static class DIExtensions
 
     public static void AddCoffeeShopRepositories(this IServiceCollection services)
     {
-        services.AddSingleton<ICoffeeBeansReadRepository, CoffeeBeansReadRepository>();
-        services.AddSingleton<ICoffeeBeansWriteRepository, CoffeeBeansWriteRepository>();
+        services.AddScoped<ICoffeeBeansReadRepository, CoffeeBeansReadRepository>();
+        services.AddScoped<ICoffeeBeansWriteRepository, CoffeeBeansWriteRepository>();
     }
 
     public static async Task ApplyDatabaseMigrations(this IApplicationBuilder app)

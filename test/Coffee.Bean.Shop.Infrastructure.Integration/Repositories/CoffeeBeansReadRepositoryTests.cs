@@ -1,3 +1,4 @@
+using Coffee.Bean.Shop.Common;
 using Coffee.Bean.Shop.Core.Entities;
 using Coffee.Bean.Shop.Core.Repositories;
 using Coffee.Bean.Shop.Infrastructure.Integration.Common;
