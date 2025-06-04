@@ -27,9 +27,11 @@ jobs:
     - name: Build
       run: dotnet build --no-restore
     - name: Test
-      run: dotnet test --no-build --verbosity minimal --logger trx --results-directory "TestResults-${{ matrix.dotnet-version }}"
-    - name: Upload dotnet test results
-      uses: actions/upload-artifact@v4
+      run: dotnet test --no-build --verbosity minimal --logger "trx;LogFileName=test-results.trx"
+    - name: Test Report
+      uses: dorny/test-reporter@v2
+      if: ${{ !cancelled() }}       # run this step even if previous step failed
       with:
-        name: dotnet-results-${{ matrix.dotnet-version }}
-        path: TestResults-${{ matrix.dotnet-version }}
+        name: JEST Tests            # Name of the check run which will be created
+        path: test/**/test-results.trx    # Path to test results
+        reporter: dotnet-trx   
