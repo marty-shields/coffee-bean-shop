@@ -11,7 +11,7 @@ internal class CoffeeBeanService : ICoffeeBeanService
     private readonly ICoffeeBeansReadRepository _coffeeBeansReadRepository;
     private readonly ICoffeeBeansWriteRepository _coffeeBeansWriteRepository;
 
-    internal CoffeeBeanService(
+    public CoffeeBeanService(
         ICoffeeBeansReadRepository coffeeBeansReadRepository,
         ICoffeeBeansWriteRepository coffeeBeansWriteRepository)
     {

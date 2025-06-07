@@ -6,4 +6,7 @@
   <ItemGroup>
     <ProjectReference Include="../Coffee.Bean.Shop.Core/Coffee.Bean.Shop.Core.csproj" />
   </ItemGroup>
+  <ItemGroup>
+     <InternalsVisibleTo Include="Coffee.Bean.Shop.Infrastructure.Integration" />
+  </ItemGroup>
 </Project>

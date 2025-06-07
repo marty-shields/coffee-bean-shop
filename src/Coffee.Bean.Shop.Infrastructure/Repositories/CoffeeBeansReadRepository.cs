@@ -10,7 +10,7 @@ internal class CoffeeBeansReadRepository : ICoffeeBeansReadRepository
 {
     private readonly CoffeeShopContext _context;
 
-    internal CoffeeBeansReadRepository(CoffeeShopContext context)
+    public CoffeeBeansReadRepository(CoffeeShopContext context)
     {
         _context = context;
     }
@@ -18,7 +18,7 @@ internal class CoffeeBeansReadRepository : ICoffeeBeansReadRepository
     public async Task<CoffeeBean?> GetByAsync(string name)
     {
         CoffeeBeanTable? coffeeBeanTable = await _context.CoffeeBeans
-            .FirstOrDefaultAsync(cb => cb.Name.Equals(name, StringComparison.OrdinalIgnoreCase));
+            .FirstOrDefaultAsync(cb => cb.Name.ToLower() == name.ToLower());
 
         return coffeeBeanTable?.ToEntity();
     }
