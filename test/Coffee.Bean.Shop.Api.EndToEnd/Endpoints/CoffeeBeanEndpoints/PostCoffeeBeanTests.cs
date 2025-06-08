@@ -3,6 +3,7 @@ using System.Text.Json;
 
 using Coffee.Bean.Shop.Api.EndToEnd.Utilties;
 using Coffee.Bean.Shop.Api.Models;
+using Coffee.Bean.Shop.Core.Errors;
 
 using Microsoft.AspNetCore.Http;
 
@@ -16,7 +17,7 @@ public class PostCoffeeBeanTests
     {
         CreateCoffeeBeanRequest requestBody = this.GetRequestBody();
 
-        var response = await TestConfiguration.HttpClient!.PostAsync("/api/beans",
+        var response = await TestConfiguration.Client!.PostAsync("/api/beans",
             new StringContent(JsonSerializer.Serialize(requestBody), System.Text.Encoding.UTF8, "application/json"));
 
         await this.EnsureSuccessfullResponse(requestBody, response);
@@ -28,7 +29,7 @@ public class PostCoffeeBeanTests
         CreateCoffeeBeanRequest requestBody = this.GetRequestBody();
         requestBody.Image = null;
 
-        var response = await TestConfiguration.HttpClient!.PostAsync("/api/beans",
+        var response = await TestConfiguration.Client!.PostAsync("/api/beans",
             new StringContent(JsonSerializer.Serialize(requestBody), System.Text.Encoding.UTF8, "application/json"));
 
         await this.EnsureSuccessfullResponse(requestBody, response);
@@ -74,10 +75,11 @@ public class PostCoffeeBeanTests
                 break;
         }
 
-        var response = await TestConfiguration.HttpClient!.PostAsync("/api/beans",
+        var response = await TestConfiguration.Client!.PostAsync("/api/beans",
             new StringContent(JsonSerializer.Serialize(requestBody), System.Text.Encoding.UTF8, "application/json"));
 
         Assert.AreEqual(HttpStatusCode.BadRequest, response.StatusCode);
+        Assert.AreEqual("application/problem+json", response.Content.Headers.ContentType?.MediaType);
 
         HttpValidationProblemDetails validationProblemResponse = JsonSerializer.Deserialize<HttpValidationProblemDetails>(
             await response.Content.ReadAsStringAsync())!;
@@ -91,6 +93,30 @@ public class PostCoffeeBeanTests
         Assert.AreEqual(propertyName, actualKey);
         string actualValue = validationProblemResponse.Errors[actualKey].First();
         Assert.AreEqual(errorMessage, actualValue);
+    }
+
+    [TestMethod]
+    public async Task Failure409_CoffeeBeanAlreadyExists()
+    {
+        CreateCoffeeBeanRequest requestBody = this.GetRequestBody();
+
+        var response = await TestConfiguration.Client!.PostAsync("/api/beans",
+            new StringContent(JsonSerializer.Serialize(requestBody), System.Text.Encoding.UTF8, "application/json"));
+        await this.EnsureSuccessfullResponse(requestBody, response);
+
+        response = await TestConfiguration.Client!.PostAsync("/api/beans",
+            new StringContent(JsonSerializer.Serialize(requestBody), System.Text.Encoding.UTF8, "application/json"));
+        Assert.AreEqual(HttpStatusCode.Conflict, response.StatusCode);
+        Assert.AreEqual("application/json", response.Content.Headers.ContentType?.MediaType);
+        string s = await response.Content.ReadAsStringAsync();
+
+        var conflictResponse = JsonSerializer.Deserialize<ErrorResponseModel>(
+            await response.Content.ReadAsStringAsync(), new JsonSerializerOptions
+            {
+                PropertyNameCaseInsensitive = true
+            })!;
+        Assert.IsNotNull(conflictResponse);
+        Assert.AreEqual(CoffeeBeanErrors.CoffeeBeanAlreadyExists, conflictResponse.Error);
     }
 
     private CreateCoffeeBeanRequest GetRequestBody()
@@ -110,6 +136,7 @@ public class PostCoffeeBeanTests
     private async Task EnsureSuccessfullResponse(CreateCoffeeBeanRequest requestBody, HttpResponseMessage response)
     {
         response.EnsureSuccessStatusCode();
+        Assert.AreEqual(HttpStatusCode.Created, response.StatusCode);
         CreateCoffeeBeanResponse coffeeBean = JsonSerializer.Deserialize<CreateCoffeeBeanResponse>(
             await response.Content.ReadAsStringAsync(), new JsonSerializerOptions
             {

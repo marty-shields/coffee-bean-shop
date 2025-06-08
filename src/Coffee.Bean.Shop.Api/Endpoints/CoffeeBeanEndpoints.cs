@@ -1,5 +1,6 @@
 using Coffee.Bean.Shop.Api.Models;
 using Coffee.Bean.Shop.Core.Entities;
+using Coffee.Bean.Shop.Core.Errors;
 using Coffee.Bean.Shop.Core.Services;
 
 using FluentValidation;
@@ -31,15 +32,33 @@ public static class CoffeeBeanEndpoints
                 request.Name!,
                 request.Price!.Value);
 
-            await coffeeBeanService.CreateCoffeeBeanAsync(coffeeBean);
-            return Results.Created($"/api/beans/{coffeeBean.Id}", CreateCoffeeBeanResponse.FromCoffeeBean(coffeeBean));
+            var response = await coffeeBeanService.CreateCoffeeBeanAsync(coffeeBean);
+
+            if (CoffeeBeanAlreadyExists(response))
+            {
+                return Results.Conflict(new ErrorResponseModel(CoffeeBeanErrors.CoffeeBeanAlreadyExists));
+            }
+
+            if (!response.IsSuccess)
+            {
+                return Results.UnprocessableEntity(new ErrorResponseModel(response.Errors.First()));
+            }
+
+            return Results.Created($"/api/beans/{coffeeBean.Id}", response.Value!);
         })
             .WithOpenApi()
             .WithName("CreateCoffeeBean")
             .WithSummary("Creates a new coffee bean")
             .WithDescription("Creates a new coffee bean with the specified details. The IsBeanOfTheDay property is set to false by default.")
-            .WithTags("Coffee Beans");
+            .WithTags("Coffee Beans")
+            .Produces(StatusCodes.Status201Created, typeof(CoffeeBean), "application/json")
+            .Produces(StatusCodes.Status400BadRequest, typeof(HttpValidationProblemDetails), "application/problem+json")
+            .Produces(StatusCodes.Status409Conflict, typeof(ErrorResponseModel), "application/json")
+            .Produces(StatusCodes.Status422UnprocessableEntity, typeof(ErrorResponseModel), "application/json");
 
         return endpoints;
     }
+
+    private static bool CoffeeBeanAlreadyExists(Core.Result<CoffeeBean> response)
+        => !response.IsSuccess && response.Errors.Count() == 1 && response.Errors.First() == CoffeeBeanErrors.CoffeeBeanAlreadyExists;
 }
