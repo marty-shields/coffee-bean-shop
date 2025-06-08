@@ -3,6 +3,14 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.0.31903.59
 MinimumVisualStudioVersion = 10.0.40219.1
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{250F283E-FE2F-4BBD-9E63-A2265B84E23F}"
+	ProjectSection(SolutionItems) = preProject
+		.editorconfig = .editorconfig
+        .runsettings = .runsettings
+		Directory.Build.props = Directory.Build.props
+		Directory.Packages.props = Directory.Packages.props
+	EndProjectSection
+EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{827E0CD3-B72D-47B6-A68D-7590B98EB39B}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Coffee.Bean.Shop.Api", "src\Coffee.Bean.Shop.Api\Coffee.Bean.Shop.Api.csproj", "{4A34A289-70C1-4B6B-ADC7-040928959021}"
@@ -20,6 +28,8 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Coffee.Bean.Shop.Logic.Unit", "test\Coffee.Bean.Shop.Logic.Unit\Coffee.Bean.Shop.Logic.Unit.csproj", "{275F43EB-2C87-4324-A8DA-CE07BBC0298F}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Coffee.Bean.Shop.Common", "test\Coffee.Bean.Shop.Common\Coffee.Bean.Shop.Common.csproj", "{FF36D7C8-CC83-474D-A101-65A636BD1A33}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Coffee.Bean.Shop.Api.EndToEnd", "test\Coffee.Bean.Shop.Api.EndToEnd\Coffee.Bean.Shop.Api.EndToEnd.csproj", "{B6F840F6-D0CB-4AD7-BA14-F6A1A8801741}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -55,6 +65,10 @@ Global
 		{FF36D7C8-CC83-474D-A101-65A636BD1A33}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{FF36D7C8-CC83-474D-A101-65A636BD1A33}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{FF36D7C8-CC83-474D-A101-65A636BD1A33}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B6F840F6-D0CB-4AD7-BA14-F6A1A8801741}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B6F840F6-D0CB-4AD7-BA14-F6A1A8801741}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B6F840F6-D0CB-4AD7-BA14-F6A1A8801741}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B6F840F6-D0CB-4AD7-BA14-F6A1A8801741}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -67,5 +81,6 @@ Global
 		{3A0C6400-B780-4D1E-879E-F2EF83292AF2} = {0C88DD14-F956-CE84-757C-A364CCF449FC}
 		{275F43EB-2C87-4324-A8DA-CE07BBC0298F} = {0C88DD14-F956-CE84-757C-A364CCF449FC}
 		{FF36D7C8-CC83-474D-A101-65A636BD1A33} = {0C88DD14-F956-CE84-757C-A364CCF449FC}
+		{B6F840F6-D0CB-4AD7-BA14-F6A1A8801741} = {0C88DD14-F956-CE84-757C-A364CCF449FC}
 	EndGlobalSection
 EndGlobal

@@ -17,7 +17,7 @@ public class CoffeeBeansReadRepositoryTests
     [TestInitialize]
     public async Task Setup()
     {
-        _context = await CoffeeShopContextProvider.CreateContext(nameof(CoffeeBeansReadRepositoryTests));
+        _context = await CoffeeShopContextProvider.CreateContext($"{nameof(CoffeeBeansReadRepositoryTests)}-{Guid.NewGuid()}");
         _repository = new CoffeeBeansReadRepository(_context);
         _coffeeBeanBuilder = new CoffeeBeanBuilder();
     }

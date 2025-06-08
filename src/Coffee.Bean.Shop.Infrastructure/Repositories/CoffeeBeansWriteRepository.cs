@@ -10,7 +10,7 @@ internal class CoffeeBeansWriteRepository : ICoffeeBeansWriteRepository
     private readonly CoffeeShopContext _dbContext;
 
 
-    internal CoffeeBeansWriteRepository(CoffeeShopContext dbContext)
+    public CoffeeBeansWriteRepository(CoffeeShopContext dbContext)
     {
         _dbContext = dbContext;
 

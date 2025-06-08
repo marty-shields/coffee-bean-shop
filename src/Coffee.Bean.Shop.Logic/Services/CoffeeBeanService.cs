@@ -1,6 +1,7 @@
 
 using Coffee.Bean.Shop.Core;
 using Coffee.Bean.Shop.Core.Entities;
+using Coffee.Bean.Shop.Core.Errors;
 using Coffee.Bean.Shop.Core.Repositories;
 using Coffee.Bean.Shop.Core.Services;
 
@@ -11,7 +12,7 @@ internal class CoffeeBeanService : ICoffeeBeanService
     private readonly ICoffeeBeansReadRepository _coffeeBeansReadRepository;
     private readonly ICoffeeBeansWriteRepository _coffeeBeansWriteRepository;
 
-    internal CoffeeBeanService(
+    public CoffeeBeanService(
         ICoffeeBeansReadRepository coffeeBeansReadRepository,
         ICoffeeBeansWriteRepository coffeeBeansWriteRepository)
     {
@@ -29,7 +30,7 @@ internal class CoffeeBeanService : ICoffeeBeanService
         var existingBean = await _coffeeBeansReadRepository.GetByAsync(coffeeBean.Name);
         if (existingBean is not null)
         {
-            return Result<CoffeeBean>.Failure(new[] { "Coffee bean with the same name already exists." });
+            return Result<CoffeeBean>.Failure(new[] { CoffeeBeanErrors.CoffeeBeanAlreadyExists });
         }
 
         await _coffeeBeansWriteRepository.CreateAsync(coffeeBean);
