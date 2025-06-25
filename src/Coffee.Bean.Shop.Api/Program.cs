@@ -10,11 +10,16 @@ try
 
     builder.Services.AddSerilog();
     Log.Logger = new LoggerConfiguration()
-        .WriteTo.Seq(
-            serverUrl: builder.Configuration.GetRequiredSection("LogUrl").Value!,
-            apiKey: builder.Configuration.GetRequiredSection("LogApiToken").Value!
-        )
-        .Enrich.WithProperty("ServiceName", "coffee-shop-api")
+        .WriteTo.OpenTelemetry(options =>
+        {
+            options.Headers.Add("X-Seq-ApiKey", builder.Configuration.GetRequiredSection("LogApiToken").Value!);
+            options.Protocol = Serilog.Sinks.OpenTelemetry.OtlpProtocol.HttpProtobuf;
+            options.Endpoint = builder.Configuration.GetRequiredSection("LogUrl").Value!;
+            options.ResourceAttributes = new Dictionary<string, object>
+            {
+                ["service.name"] = "coffee-shop-api"
+            };
+        })
         .CreateLogger();
 
     builder.SetupDI();
